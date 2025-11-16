@@ -1,53 +1,47 @@
 import Navbar from "~/components/Navbar";
 import type { Route } from "./+types/home";
+import { resume } from "react-dom/server";
 import { resumes } from "~/constants";
 import ResumeCard from "~/components/ResumeCard";
-import { useLocation, useNavigate } from "react-router";
-import { usePuterStore } from "~/lib/puter";
 import { useEffect } from "react";
+import { useNavigate, type NavigateFunction } from "react-router";
+import { usePuterStore } from "~/lib/puter";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Resumetrics" },
-    {
-      name: "description",
-      content: "AI-powered insights to perfect your resume.",
-    },
+    { title: "Resumetric" },
+    { name: "description", content: "Smart insights for your perfect resume" },
   ];
 }
 
 export default function Home() {
 
-  const {isLoading,auth} =usePuterStore();
-  const location=useLocation();
-  const navigate=useNavigate();
+const {auth} = usePuterStore();
+  const navigate:NavigateFunction=useNavigate();
 
-  useEffect(() => {
-  if (!isLoading) {
-    if (!auth?.isAuthenticated) {
-      navigate('/auth?next=/');
-    }
-  }
-}, [isLoading, auth?.isAuthenticated, navigate]);
+  useEffect(()=>{
+    if(!auth.isAuthenticated)navigate('/auth?next=/');
+    
+  },[auth.isAuthenticated]);
 
+  
+  return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+    <Navbar/>
+    <section className="main-section">
+      <div className="page-heading py-2">
+        <h1 >Track Your Applications & Resume Performance</h1>
+        <h2>Review your resume and see instant AI-powered feedback.</h2>
+      </div>
 
-  return (
-    <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-      <Navbar />
-      <section className="main-section">
-        <div className="page-heading">
-          <h1>Track your Applications and Resume Ratings</h1>
-          <h2>Review your submissions and check AI-powered feedbacks</h2>
-        </div>
-
-      {resumes.length > 0 && (
+    {
+      resumes.length>0 && (
         <div className="resumes-section">
-          {resumes.map((resume) => (
-              <ResumeCard key={resume.id} resume={resume} />
+          {resumes.map((resume)=>(
+            <ResumeCard key={resume.id} resume={resume} />
           ))}
         </div>
-      )}
-      </section>
-    </main>
-  );
+      )
+    }
+    </section>
+  </main>;
 }

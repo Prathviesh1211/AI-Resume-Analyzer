@@ -5,9 +5,12 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
         <Link to='/'>
-            <p className='text-2xl font-bold text-gradient'>RESUMETRICS</p>
+            <p className='font-bold text-2xl text-gradient'>RESUMETRIC</p>
         </Link>
-            <Link to='/upload' className='primary-button w-fit'>Upload Resume</Link>
+        <Link to='/upload' className='primary-button w-fit'>
+            Upload Resume
+        </Link>
+
     </nav>
   )
 }
