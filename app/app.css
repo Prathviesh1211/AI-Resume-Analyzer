@@ -93,7 +93,7 @@ form {
   }
 
   .feedback-section {
-    @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+    @apply flex flex-col gap-2 w-1/2 px-8 max-lg:w-full py-6;
   }
 
   .navbar {
@@ -101,7 +101,7 @@ form {
   }
 
   .score-badge {
-    @apply flex flex-row items-center justify-center py-1 px-2 gap-4 rounded-[96px];
+    @apply flex flex-row items-center justify-center py-1 px-2 gap-2 rounded-[96px];
   }
 
   .form-div {

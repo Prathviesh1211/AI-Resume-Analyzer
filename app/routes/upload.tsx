@@ -16,6 +16,9 @@ const upload = () => {
 
   const [file, setFile] = useState<File | null>(null);
 
+
+
+
   const handleFileSelect = (file: File | null) => {
     setFile(file);
   };
@@ -59,10 +62,15 @@ const upload = () => {
     await kv.set(`resume:${uuid}`,JSON.stringify(data));
     setStatusText('Analyzing...')
 
-    const feedback=await ai.feedback(
-      uploadedFile.path,
-      prepareInstructions({jobTitle,jobDescription})
-    )
+   const feedback = await ai.feedback(
+  uploadedFile.path,
+  prepareInstructions({
+    jobTitle,
+    jobDescription,
+  })
+  // { model: "gpt-4o-mini" }
+);
+
     if(!feedback)return setStatusText('Error : Failed to analyze resume')
 
     const feedbackContent = typeof feedback.message.content === 'string'
